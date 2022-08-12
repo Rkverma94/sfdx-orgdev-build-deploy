@@ -13202,6 +13202,7 @@ try {
   //Load login params
   login.clientId = core.getInput('client_id');
   login.orgType = core.getInput('type');
+  login.customUrl = core.getInput('customUrl');
   login.username = core.getInput('username');
   
   //Load deploy params
@@ -13356,7 +13357,14 @@ let login = function (cert, login){
     execCommand.run('openssl', ['enc', '-nosalt', '-aes-256-cbc', '-d', '-in', cert.certificatePath, '-out', 'server.key', '-base64', '-K', cert.decryptionKey, '-iv', cert.decryptionIV]);
 
     core.info('==== Authenticating in the target org');
-    const instanceurl = login.orgType === 'sandbox' ? 'https://test.salesforce.com' : 'https://login.salesforce.com';
+    let instanceurl = '';
+    if(login.orgType === 'sandbox') {
+    	instanceurl = 'https://test.salesforce.com';
+    } else if(login.orgType === 'custom') {
+    	instanceurl = login.customUrl;
+    } else {
+    	instanceurl = 'https://login.salesforce.com';
+    }
     core.info('Instance URL: ' + instanceurl);
     execCommand.run('sfdx', ['force:auth:jwt:grant', '--instanceurl', instanceurl, '--clientid', login.clientId, '--jwtkeyfile', 'server.key', '--username', login.username, '--setalias', 'sfdc']);
 };
