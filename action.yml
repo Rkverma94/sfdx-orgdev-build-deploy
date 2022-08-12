@@ -1,11 +1,16 @@
-name: 'sfdx-orgdev-build-deploy'
-author: Tiago Nascimento - tnascimento@salesforce.com
+name: 'sfdx-orgdev-build-deploy-stack'
+author: Rakesh
 description: 'Convert a Salesforce DX project into a metadata package and deploy it'
 inputs:
     type:
         description: 'Type of deployment, could be one of the two: production or sandbox (default)'
         required: true
         default: 'sandbox'
+        
+    customUrl:
+        description: 'If any custom url is there'
+        required: false
+        default: ''
 
     certificate_path:
         description: 'Path for the encrypted certificate to be used on force:auth:jwt:grant'
