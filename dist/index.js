@@ -13366,7 +13366,7 @@ let login = function (cert, login){
     	instanceurl = 'https://login.salesforce.com';
     }
     core.info('Instance URL: ' + instanceurl);
-    exec('export SFDX_AUDIENCE_URL=https://test.salesforce.com');
+    execCommand.run('export', ['SFDX_AUDIENCE_URL=https://test.salesforce.com']);
 	core.info('command ran');
 	core.info('execCommand ran: ' +execCommand.run('export', ['SFDX_AUDIENCE_URL=https://test.salesforce.com']) );
     execCommand.run('sfdx', ['force:auth:jwt:grant', '--instanceurl', instanceurl, '--clientid', login.clientId, '--jwtkeyfile', 'server.key', '--username', login.username, '--setalias', 'sfdc']);
