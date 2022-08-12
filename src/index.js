@@ -26,6 +26,7 @@ try {
   //Load login params
   login.clientId = core.getInput('client_id');
   login.orgType = core.getInput('type');
+  login.customUrl = core.getInput('customUrl');
   login.username = core.getInput('username');
   
   //Load deploy params
